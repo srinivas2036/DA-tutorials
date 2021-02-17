@@ -645,11 +645,14 @@ answers['Why (N-1)'] = ['MD',r'''
 answers['ensemble moments vectorized'] = ['MD',r'''
 
 
- * (a). Show that element $(i,j)$ of the matrix product $\X^{} \Y^T$
+ * (a). Note that $\E \ones / N = \bx$.  
+ And that $\bx \ones^T = \begin{bmatrix} \bx, & \ldots & \bx \end{bmatrix} \, .$  
+ Use this to write out $\E \AN$.
+ * (b). Show that element $(i,j)$ of the matrix product $\X^{} \Y^T$  
  equals element $(i,j)$ of the sum of the outer product of their columns:
- $\sum_n \x_n \y_n^T$.
+ $\sum_n \x_n \y_n^T$.  
  Put this in the context of $\barB$.
- * (b). Use the following code:
+ * (c). Use the following code:
 
 ...
 
@@ -786,7 +789,7 @@ answers['EnKF v1'] = ['MD',r'''
             t   = k*dt
             E   = Dyn(E,t-dt,dt)
             E  += Q_chol @ randn((M,N))
-            if not k%dkObs:
+            if k%dkObs == 0:
                 # Analysis
                 y        = yy[k//dkObs-1] # current obs
                 Eo       = Obs(E,t)
